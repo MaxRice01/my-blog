@@ -1,0 +1,105 @@
+---
+output: 
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: false
+    dev: cairo_pdf
+    template: svm-latex-resume.tex
+
+title: "Résumé"
+author: "Max Rice"
+date: "8/31/2020 -- Update before applying"
+
+fontawesome: TRUE
+#geometry: margin=1in
+geometry: "top=.5in, left =.5in, right=.5in, bottom=.75in"
+
+# How can we get a hold of you?
+email: max.rice01@gmail.com
+phone: 5015900581
+location: "Fayetteville, AR"
+github: mrrice
+web: www.uark.edu
+twitter: "none"
+linkedin: "none"
+mainfont: cochineal
+sansfont: Fira Sans
+# monofont: Fira Code # I want to use this, but seems to choke on @
+urlcolor: blue
+fontsize: 11pt
+
+includephoto: TRUE
+myphoto: max.jpg
+# shift: "7in,-.25in" # this is default
+photobigness: 1.75cm
+# photozoom: ".2\textwidth" # this is default
+---
+
+
+<!-- Read more about Pandoc's [fenced_divs](https://pandoc.org/MANUAL.html#extension-fenced_divs) syntax -->
+
+:::::: {.columns}
+::: {.column width="60%" data-latex="{0.60\textwidth}"}
+
+# Professional Experience
+
+## Restaraunt Worker
+
+- Worked in the Blue Court Grill as a chef and waiter
+- Worked there for a year and a half
+
+## Intern
+
+- Interned for Mike Steely at the Little Rock Technology Park
+- Advertising firm
+- I helped Mr. Steely manage his schedule and sat in on some of his meetings to gain professional experience
+
+## Cyber-Security
+
+- Participated in the Cyber Patriot competition for three years
+
+
+
+
+
+# Education
+
+## Highschool
+
+Graduated from Catholic High School for Boys in 2019
+ 
+## Undergraduate Program
+
+Current Student at University of Arkansas
+
+# Technical Skills (or Accomplishments)
+
+- Can proficiently code in Python
+- Very proficient with the entire Microsoft suite of products
+
+:::
+::::::
+
+<!-- If you want another page, this is how you can do it... -->
+
+<!-- \newpage
+
+:::::: {.columns}
+::: {.column width="60%" data-latex="{0.60\textwidth}"}
+
+
+
+
+:::
+::: {.column width="2%" data-latex="{0.02\textwidth}"}
+\
+
+
+:::
+:::::: {.column width="38%" data-latex="{0.38\textwidth}"}
+
+
+:::
+::::::
+
+-->
