@@ -22,6 +22,11 @@
 
 
 
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
 <link rel="stylesheet" href="/css/fonts.css" media="all">
 <link rel="stylesheet" href="/css/main.css" media="all">
 
@@ -57,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">1 min read</span>
+    <span class="article-duration">2 min read</span>
     
 
     <h1 class="article-title">music</h1>
@@ -75,15 +80,18 @@
 <p>For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
-<p>Which genres have the most amount of songs that are very popular (85-100)?</p>
-</div>
-<div id="question-2" class="section level3">
-<h3>Question 2</h3>
-<p>What is the overall popularity rating of each genre?</p>
-</div>
-<div id="question-3" class="section level3">
-<h3>Question 3</h3>
-<p>In each genre, which artists are the most popular?</p>
+<p>Which genres have the most amount of songs that are very popular (85-100)? For this question I will start by selecting and grouping the appropriate variables. After that I will create the graph. For this graph I will be using a count chart.</p>
+<pre><code>## Warning: Removed 32091 rows containing non-finite values (stat_sum).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+In this graph the larger the circle is the higher the count is. As we can see rock has the least amount, while pop and latin have the highest number of popular songs.
+### Question 2
+Which genre has the highest overall average popularity rating of each genre? For starters, I will select the appropriate variables. I will also summarize the average of the track popularity by genre into a new variable called mean_pop.
+<img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+As we can see pop has the highest average popularity, which is in line with the previous question. Latin is close behind, and rap and rock close behind that. Unlike the previous question, edm is the lowest on this chart.
+### Question 3
+In each genre, which artists are the most popular? For this question, we will start by selecting the appropriate variables and grouping by track_artist. Then, we need to filter out the artists that have songs under 95 popularity to keep the graph from getting too crowded.
+<img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+As we can see each artist has multiple categories that their music falls into. For EDM, the most popular artist is Arizona Zervas. For Latin, the most popular is Tones and I. For Pop the most popular artist is also Tones and I. For R&amp;B the most popular artist is Arizona Zervas. For Rap the most popular artist is tied between Roddy Ricch and KAROL G. For Rock the only selection is Billie Eilish so she wins be default.</p>
 </div>
 
     </div>
@@ -107,6 +115,18 @@
 
     </div>
     
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
     
 

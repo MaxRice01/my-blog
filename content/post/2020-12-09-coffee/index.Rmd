@@ -1,6 +1,6 @@
 ---
-title: Effect of Processing Method on Quality of Coffee
-author: ~
+title: "Effect of Processing Method on Quality of Coffee"
+author: 'null'
 date: '2020-12-09'
 slug: coffee
 categories: []
@@ -12,6 +12,7 @@ library(ggplot2)
 library(tidyverse)
 library(readxl)
 knitr::opts_chunk$set(tidy = TRUE, echo = FALSE)
+coffee <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-07-07", "coffee_ratings.csv"))
 ```
 
 For my first dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 4 of which I will be using in my analysis. The first variable I will use is total_cup_points. This variable is the total score that the coffee receives out of 100. The second variable is processing_method, which states the method by which this coffee was processed. The third variable is country_of_origin. This variable states which country the coffee was produced in. The final variable I will be using is species, which shows the species of coffea.

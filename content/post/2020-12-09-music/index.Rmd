@@ -1,6 +1,6 @@
 ---
-title: music
-author: ~
+title: "music"
+author: 'null'
 date: '2020-12-09'
 slug: music
 categories: []
@@ -12,6 +12,7 @@ library(ggplot2)
 library(tidyverse)
 library(readxl)
 knitr::opts_chunk$set(tidy = TRUE, echo = FALSE)
+music <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-01-21", "spotify_songs.csv"))
 ```
 
 For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.
