@@ -17,6 +17,9 @@ music <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-01-21"
 
 For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.
 
+test test test test
+test test test test
+
 ### Question 1
 Which genres have the most amount of songs that are very popular (85-100)? For this question I will start by selecting and grouping the appropriate variables. After that I will create the graph. For this graph I will be using a count chart.
 ```{r}
