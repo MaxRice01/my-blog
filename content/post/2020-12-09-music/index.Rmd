@@ -6,7 +6,7 @@ slug: music
 categories: []
 tags: []
 ---
-```{r message=FALSE, include=FALSE}
+```{r message=FALSE, include=FALSE, echo = TRUE}
 library(here)
 library(ggplot2)
 library(tidyverse)
