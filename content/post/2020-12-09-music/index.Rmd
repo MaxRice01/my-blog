@@ -15,7 +15,7 @@ knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
 music <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-01-21", "spotify_songs.csv"))
 ```
 
-For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by Spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.
+For this dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by Spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.
 
 
 ### Question 1
@@ -53,3 +53,4 @@ As we can see each artist has multiple categories that their music falls into. F
 
 
 ## Summary
+In summary, we can see that in multiple examples pop is the most popular genre. We can also see that most artists have songs that are labled in the pop genre. Pop is a very vauge description of a song. There is not really anything that defines a song as pop except the instruments used and the style of music being played. Pop uses more electronic than acoustic instruments generally, with the exception of acoustic guitar which is very prominent in pop music. Since pop is such a vauge description of a song, it would make sense that pop is first in all of these analyses.

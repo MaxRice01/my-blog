@@ -1,5 +1,5 @@
 ---
-title: "Effect of Processing Method on Quality of Coffee"
+title: "Effect of Different Factors on Quality of Coffee"
 author: 'null'
 date: '2020-12-09'
 slug: coffee
@@ -17,11 +17,11 @@ library(tidyverse)
 library(readxl)
 knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
 coffee &lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-07-07&quot;, &quot;coffee_ratings.csv&quot;))</code></pre>
-<p>For my first dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 4 of which I will be using in my analysis. The first variable I will use is total_cup_points. This variable is the total score that the coffee receives out of 100. The second variable is processing_method, which states the method by which this coffee was processed. The third variable is country_of_origin. This variable states which country the coffee was produced in. The final variable I will be using is species, which shows the species of coffea.</p>
+<p>For this dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 6 of which I will be using in my analysis. The first variable I will use is total_cup_points. This variable is the total score that the coffee receives out of 100. The second variable is processing_method, which states the method by which this coffee was processed. The third variable is country_of_origin. This variable states which country the coffee was produced in. The fourth variable I will use is category_one_defects. The fifth variable I will use is category_two_defects. Both the fourth and fifth variables show the amount of the different types of defects. The final variable I will be using is species, which shows the species of coffea.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
-<p>How does the rating differ between cups that were processed in one of the various ways? To explore this question, we need to first select the data to only show the variables total_cup_points and processing_method. Then we filter out the entries with N/A.</p>
-<pre class="r"><code>coffee %&gt;% select(total_cup_points, processing_method) %&gt;% group_by(processing_method) %&gt;% 
+<p>How does the rating differ between cups that were processed in one of the various ways? To explore this question, we need to first select the data to only show the variables total_cup_points and processing_method. Then we filter out the entries with N/A. This gives us only the data that has an entry for the processing_method variable. We do this because any data that doesnt have an entry is irrelevant because it is unknown which method was used. We will use this filter for several of the other questions as well. We wil be using a box plot for this question to show the ranges of scores.</p>
+<pre class="r"><code>coffee %&gt;% select(total_cup_points, processing_method, region) %&gt;% group_by(processing_method) %&gt;% 
     filter(!is.na(processing_method)) %&gt;% ggplot(aes(x = processing_method, y = total_cup_points, 
     color = processing_method)) + geom_boxplot(show.legend = F) + ggtitle(&quot;Score per Processing Method&quot;) + 
     xlab(&quot;Total Cup Score&quot;) + ylab(&quot;Processing Method&quot;) + coord_flip()</code></pre>
@@ -30,15 +30,15 @@ As you can see, coffee that was processed using a washed/wet method or a natural
 </div>
 <div id="question-2" class="section level3">
 <h3>Question 2</h3>
-<p>Which species of coffee produce the highest average score with each method? For this question, we must first select the appropriate data. I will be selecting the variables total_cup_points and species.</p>
+<p>Which species of coffee produce the highest average score with each method? For this question, we must first select the appropriate data. I will be selecting the variables total_cup_points and species. We start by selecting the appropriate variables and filtering out the N/A entries like in the ladts question. For this chart we will be using box plots similar to the last question, with the addition of a circle indicating the average score per processing method. This circle is hollow and lies within the boxes.</p>
 <pre class="r"><code>coffee %&gt;% select(total_cup_points, species, processing_method) %&gt;% filter(!is.na(processing_method)) %&gt;% 
     group_by(processing_method, species) %&gt;% ggplot(aes(x = processing_method, y = total_cup_points, 
     color = processing_method)) + geom_boxplot(show.legend = F) + facet_wrap(~species) + 
     ggtitle(&quot;Average Score per Species&quot;) + xlab(&quot;Mean Score&quot;) + ylab(&quot;Processing Method&quot;) + 
-    coord_flip() + stat_summary(fun.y = mean, geom = &quot;point&quot;, shape = 1, size = 3, 
+    coord_flip() + stat_summary(fun.y = mean, geom = &quot;point&quot;, shape = 1, size = 4, 
     show.legend = F)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
-As we can see, For the Arabica species the pulped natural/honey method produced the highest average score, and for the Robusta species the washed/wet method produced the highest average score by a signifigant margin.</p>
+As we can see, For the Arabica species the pulped natural/honey method produced the highest average score, and for the Robusta species the washed/wet method produced the highest average score by a signifigant margin. Judging by the box plots, the range of higher scores for the Robusta species using the washed/wet method is much higher than the range of the natural/dry method. This is different than the Arabica species which has both of those methods much closer together. Also from this chart, we can tell that the Robusta species benefits from exposure to water as opposed the being dried. We can also tell that the Arabica species produces high scores with both methods. We can gather this by looking at the scores. The Robusta species has a significantly lower natural/dry score than the Arabica species.</p>
 </div>
 <div id="question-3" class="section level3">
 <h3>Question 3</h3>
@@ -50,4 +50,25 @@ As we can see, For the Arabica species the pulped natural/honey method produced 
     xlab(&quot;Mean Score&quot;) + ylab(&quot;County of Origin&quot;)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 As we can see Uganda, Papua New Guinea, and Ethiopia had the highest average score for the washed/wet method. For the natural/dry method, Tanzania, Panama, and Kenya had the highest average scores. For the semi-washed method, Thailand had the highest average score. For the Pulped natural method, Thailand, Taiwan, and Japan had the highest average scores. Finally for other mathods not listed, Costa Rica had the highest average score.</p>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>Which processing methods cause the highest average defects in the coffee? There are two different categories of defects when it comes to coffee. The first category is a full defect. This includes a fully black or sour bean, as well as sticks or stones being included in the harvest. The second category is a partial defect. This includes broken of chipped beans, damage by insects, partially sour or blackened, or water damage. This question is going to explore how the different processing methods we have been analyzing effects the number of defects in the coffee.</p>
+<pre class="r"><code>coffee %&gt;% select(processing_method, category_one_defects, category_two_defects) %&gt;% 
+    group_by(processing_method) %&gt;% filter(!is.na(processing_method)) %&gt;% summarize(average_defects = mean(category_one_defects)) %&gt;% 
+    ggplot(aes(x = processing_method, y = average_defects, fill = processing_method)) + 
+    geom_bar(stat = &quot;identity&quot;, show.legend = FALSE) + coord_flip() + ggtitle(&quot;Average # of Category One Defects per Processing Method&quot;) + 
+    ylab(&quot;Average Category One Defects&quot;) + xlab(&quot;Processing Method&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>coffee %&gt;% select(processing_method, category_one_defects, category_two_defects) %&gt;% 
+    group_by(processing_method) %&gt;% filter(!is.na(processing_method)) %&gt;% summarize(average_defects = mean(category_two_defects)) %&gt;% 
+    ggplot(aes(x = processing_method, y = average_defects, fill = processing_method)) + 
+    geom_bar(stat = &quot;identity&quot;, show.legend = FALSE) + coord_flip() + ggtitle(&quot;Average # of Category Two Defects per Processing Method&quot;) + 
+    ylab(&quot;Average Category Two Defects&quot;) + xlab(&quot;Processing Method&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-2.png" width="672" />
+As we can clearly see, the natural/dry processing method produces the highest average of both category one and category two defects. The amount of category two defects is much higher than category one because category two defects cover a more board spectrum of defects than category one. For example, category one defects say that a fully sour or blackened shell fits into this category. Category 2 however, says that a partially sour or blackened shell fits into this category. The washed/wet method has more category two defects because water damage is included in that category. Just by the nature of the washed/wet method it makes sense that more beans would be water damaged.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>In summary, we can tell that the natural/dry and the washed/wet methods of processing yield the most consistent and highest rated coffee. These two methods are the most popular among most countries, and yield great results. The Arabica species of coffee is also more popular than the Robusta species. This is most likely because the Arabica species handles the washed/wet and the natural/dry method much better than the Robusta species. The Arabica species produced more coffee with higher average scores in the natural/dry method than the Robusta species, and very similar scores using the washed/wet method. Finally, among every country that utilized these processing methods, all of them seemed to be more consistent using the washed/wet method. The natural/dry method was all over the place in terms of scores, while the washed/wet method produced most beans somewhere in the 80 to 85 score range, making the washed/wet method the most consistent and most popular method of processing coffee.</p>
 </div>

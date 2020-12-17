@@ -13,16 +13,16 @@
       <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/09/coffee/</guid>
-      <description>For my first dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 4 of which I will be using in my analysis. The first variable I will use is total_cup_points. This variable is the total score that the coffee receives out of 100.</description>
+      <description>library(here) library(ggplot2) library(tidyverse) library(readxl) knitr::opts_chunk$set(tidy = TRUE, echo = TRUE) coffee &amp;lt;- read_csv(here::here(&amp;quot;data&amp;quot;, &amp;quot;tidytuesday&amp;quot;, &amp;quot;data&amp;quot;, &amp;quot;2020&amp;quot;, &amp;quot;2020-07-07&amp;quot;, &amp;quot;coffee_ratings.csv&amp;quot;)) For my first dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 4 of which I will be using in my analysis.</description>
     </item>
     
     <item>
-      <title>music</title>
+      <title>Music Popularity by Genre</title>
       <link>/2020/12/09/music/</link>
       <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/12/09/music/</guid>
-      <description>For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by spotify.</description>
+      <description>library(here) library(ggplot2) library(tidyverse) library(readxl) knitr::opts_chunk$set(tidy = TRUE, echo = TRUE) music &amp;lt;- read_csv(here::here(&amp;quot;data&amp;quot;, &amp;quot;tidytuesday&amp;quot;, &amp;quot;data&amp;quot;, &amp;quot;2020&amp;quot;, &amp;quot;2020-01-21&amp;quot;, &amp;quot;spotify_songs.csv&amp;quot;)) For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist.</description>
     </item>
     
   </channel>

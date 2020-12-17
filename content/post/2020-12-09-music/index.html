@@ -17,7 +17,7 @@ library(tidyverse)
 library(readxl)
 knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
 music &lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-01-21&quot;, &quot;spotify_songs.csv&quot;))</code></pre>
-<p>For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by Spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.</p>
+<p>For this dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by Spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
 <p>Which genres have the most amount of songs that are very popular (85-100)? For this question I will start by selecting and grouping the appropriate variables. The three variables that I am selecting for this observation are track_name, playlist_genre, and track_popularity. Next, I am going to group my data by the playlist_genre to make sure that the data is seperated into the appropriate categories. After that I will create the graph. For this graph I will be using a count chart.</p>
@@ -51,4 +51,5 @@ As we can see each artist has multiple categories that their music falls into. F
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
+<p>In summary, we can see that in multiple examples pop is the most popular genre. We can also see that most artists have songs that are labled in the pop genre. Pop is a very vauge description of a song. There is not really anything that defines a song as pop except the instruments used and the style of music being played. Pop uses more electronic than acoustic instruments generally, with the exception of acoustic guitar which is very prominent in pop music. Since pop is such a vauge description of a song, it would make sense that pop is first in all of these analyses.</p>
 </div>
