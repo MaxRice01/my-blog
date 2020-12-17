@@ -11,14 +11,20 @@ tags: []
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
+<pre class="r"><code>library(here)
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
+coffee &lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-07-07&quot;, &quot;coffee_ratings.csv&quot;))</code></pre>
 <p>For my first dataset, I will be examining the ratings of coffee beans being processed in various ways. The different ways that coffee beans can be processed are natural/dry, pulped natural/honey, semi-washed/semi-pulped, or washed/wet. This data consists of 1,339 observations and 43 variables, only 4 of which I will be using in my analysis. The first variable I will use is total_cup_points. This variable is the total score that the coffee receives out of 100. The second variable is processing_method, which states the method by which this coffee was processed. The third variable is country_of_origin. This variable states which country the coffee was produced in. The final variable I will be using is species, which shows the species of coffea.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
 <p>How does the rating differ between cups that were processed in one of the various ways? To explore this question, we need to first select the data to only show the variables total_cup_points and processing_method. Then we filter out the entries with N/A.</p>
 <pre class="r"><code>coffee %&gt;% select(total_cup_points, processing_method) %&gt;% group_by(processing_method) %&gt;% 
-    filter(!is.na(processing_method)) %&gt;% ggplot(aes(x = total_cup_points, y = processing_method, 
-    color = processing_method)) + geom_count(show.legend = F) + ggtitle(&quot;Score per Processing Method&quot;) + 
-    xlab(&quot;Total Cup Score&quot;) + ylab(&quot;Processing Method&quot;)</code></pre>
+    filter(!is.na(processing_method)) %&gt;% ggplot(aes(x = processing_method, y = total_cup_points, 
+    color = processing_method)) + geom_boxplot(show.legend = F) + ggtitle(&quot;Score per Processing Method&quot;) + 
+    xlab(&quot;Total Cup Score&quot;) + ylab(&quot;Processing Method&quot;) + coord_flip()</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 As you can see, coffee that was processed using a washed/wet method or a natural/dry method showed a wider range of results than the other methods. While this may be in part that those two methods had a larger sample size, the other methods did not have any scores blelow a 75 while the first two methods had numerous below 75. This shows that the other methods are more difficult than the washed/wet and the natural/dry methods, but yield higher quality coffee more consistently.</p>
 </div>
@@ -26,10 +32,11 @@ As you can see, coffee that was processed using a washed/wet method or a natural
 <h3>Question 2</h3>
 <p>Which species of coffee produce the highest average score with each method? For this question, we must first select the appropriate data. I will be selecting the variables total_cup_points and species.</p>
 <pre class="r"><code>coffee %&gt;% select(total_cup_points, species, processing_method) %&gt;% filter(!is.na(processing_method)) %&gt;% 
-    group_by(processing_method, species) %&gt;% summarize(mean_score = mean(total_cup_points)) %&gt;% 
-    ggplot(aes(x = mean_score, y = processing_method, color = processing_method)) + 
-    geom_point(show.legend = F) + facet_wrap(~species) + ggtitle(&quot;Average Score per Species&quot;) + 
-    xlab(&quot;Mean Score&quot;) + ylab(&quot;Processing Method&quot;)</code></pre>
+    group_by(processing_method, species) %&gt;% ggplot(aes(x = processing_method, y = total_cup_points, 
+    color = processing_method)) + geom_boxplot(show.legend = F) + facet_wrap(~species) + 
+    ggtitle(&quot;Average Score per Species&quot;) + xlab(&quot;Mean Score&quot;) + ylab(&quot;Processing Method&quot;) + 
+    coord_flip() + stat_summary(fun.y = mean, geom = &quot;point&quot;, shape = 1, size = 3, 
+    show.legend = F)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 As we can see, For the Arabica species the pulped natural/honey method produced the highest average score, and for the Robusta species the washed/wet method produced the highest average score by a signifigant margin.</p>
 </div>

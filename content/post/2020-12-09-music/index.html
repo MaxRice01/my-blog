@@ -1,5 +1,5 @@
 ---
-title: "music"
+title: "Music Popularity by Genre"
 author: 'null'
 date: '2020-12-09'
 slug: music
@@ -11,33 +11,44 @@ tags: []
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
-<p>For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.</p>
-<p>test test test test
-test test test test</p>
+<pre class="r"><code>library(here)
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
+music &lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-01-21&quot;, &quot;spotify_songs.csv&quot;))</code></pre>
+<p>For my second dataset, I will be examining song genres vs song popularity. This dataset has 32,833 observations and uses 23 variables, and I will be using 4 of those variables. The first variable I will use is track_name, which lists the name of the song. The second variable I will use is track_artist which lists the name of the artist. The third variable I will use is track_popularity, which shows the score that it has received by Spotify. The final variable I will use is playlist_genre, which shows what genre the song fits into.</p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
-<p>Which genres have the most amount of songs that are very popular (85-100)? For this question I will start by selecting and grouping the appropriate variables. After that I will create the graph. For this graph I will be using a count chart.</p>
+<p>Which genres have the most amount of songs that are very popular (85-100)? For this question I will start by selecting and grouping the appropriate variables. The three variables that I am selecting for this observation are track_name, playlist_genre, and track_popularity. Next, I am going to group my data by the playlist_genre to make sure that the data is seperated into the appropriate categories. After that I will create the graph. For this graph I will be using a count chart.</p>
 <pre class="r"><code>music %&gt;% select(track_name, playlist_genre, track_popularity) %&gt;% group_by(playlist_genre) %&gt;% 
     ggplot(aes(x = track_popularity, y = playlist_genre, color = playlist_genre)) + 
     geom_count(show.legend = F) + ggtitle(&quot;Song Popularity by Genre&quot;) + xlab(&quot;Track Popularity&quot;) + 
     ylab(&quot;Playlist Genre&quot;) + xlim(85, 100)</code></pre>
 <pre><code>## Warning: Removed 32091 rows containing non-finite values (stat_sum).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
-In this graph the larger the circle is the higher the count is. As we can see rock has the least amount, while pop and latin have the highest number of popular songs.
-### Question 2
-Which genre has the highest overall average popularity rating of each genre? For starters, I will select the appropriate variables. I will also summarize the average of the track popularity by genre into a new variable called mean_pop.</p>
+In this graph the larger the circle is the higher the count is. As we can see rock has the least amount, while pop and latin have the highest number of popular songs. As the popularity ratings get higher, the amount of songs that have a popularity rating closer to 100 goes down significantly. This makes sense, as not everyone that listens to a song will have a positive opinion of it.</p>
+</div>
+<div id="question-2" class="section level3">
+<h3>Question 2</h3>
+<p>Which genre has the highest overall average popularity rating of each genre? For starters, I will select the appropriate variables. I will also summarize the average of the track popularity by genre into a new variable called mean_pop.</p>
 <pre class="r"><code>music %&gt;% select(playlist_genre, track_popularity) %&gt;% group_by(playlist_genre) %&gt;% 
-    summarize(mean_pop = mean(track_popularity)) %&gt;% ggplot(aes(x = playlist_genre, 
-    y = mean_pop, fill = playlist_genre)) + geom_bar(stat = &quot;identity&quot;, show.legend = F) + 
-    ylim(0, 60) + ggtitle(&quot;Average Popularity per Genre&quot;) + xlab(&quot;Playlist Genre&quot;) + 
+    ggplot(aes(x = playlist_genre, y = track_popularity, color = playlist_genre)) + 
+    geom_boxplot(show.legend = F) + stat_summary(fun.y = mean, geom = &quot;point&quot;, shape = 1, 
+    size = 3, show.legend = F) + ggtitle(&quot;Average Popularity per Genre&quot;) + xlab(&quot;Playlist Genre&quot;) + 
     ylab(&quot;Mean Popularity&quot;)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
-As we can see pop has the highest average popularity, which is in line with the previous question. Latin is close behind, and rap and rock close behind that. Unlike the previous question, edm is the lowest on this chart.
-### Question 3
-In each genre, which artists are the most popular? For this question, we will start by selecting the appropriate variables and grouping by track_artist. Then, we need to filter out the artists that have songs under 95 popularity to keep the graph from getting too crowded.</p>
+As we can see pop has the highest average popularity, which is in line with the previous question. Latin is close behind, and rap and rock close behind that. Unlike the previous question, edm is the lowest on this chart. What suprises me about this analysis is how popular Latin is. I would assume that most Spotify users would be listening to the bigger artists like Taylor Swift of Billie Eilish. Personally, I have not heard of many of the Latin artists before.</p>
+</div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<p>In each genre, which artists are the most popular? For this question, we will start by selecting the appropriate variables and grouping by track_artist. Then, we need to filter out the artists that have songs under 95 popularity to keep the graph from getting too crowded.</p>
 <pre class="r"><code>music %&gt;% select(playlist_genre, track_artist, track_popularity) %&gt;% group_by(track_artist) %&gt;% 
     filter(track_popularity &gt; 94) %&gt;% ggplot(aes(x = track_popularity, y = track_artist, 
     color = track_artist)) + geom_point(show.legend = F) + xlim(95, 100) + facet_grid(~playlist_genre)</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 As we can see each artist has multiple categories that their music falls into. For EDM, the most popular artist is Arizona Zervas. For Latin, the most popular is Tones and I. For Pop the most popular artist is also Tones and I. For R&amp;B the most popular artist is Arizona Zervas. For Rap the most popular artist is tied between Roddy Ricch and KAROL G. For Rock the only selection is Billie Eilish so she wins be default.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
 </div>

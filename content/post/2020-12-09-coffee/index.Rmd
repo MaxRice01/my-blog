@@ -6,7 +6,7 @@ slug: coffee
 categories: []
 tags: []
 ---
-```{r message=FALSE, include=FALSE, echo = TRUE}
+```{r message=FALSE, echo = TRUE}
 library(here)
 library(ggplot2)
 library(tidyverse)
@@ -24,7 +24,7 @@ coffee %>%
   select(total_cup_points, processing_method) %>%
   group_by(processing_method) %>%
   filter(!is.na(processing_method)) %>%
-  ggplot(aes(x = total_cup_points, y = processing_method, color = processing_method)) + geom_count(show.legend=F) + ggtitle("Score per Processing Method") + xlab("Total Cup Score") + ylab("Processing Method")
+  ggplot(aes(x = processing_method, y = total_cup_points, color = processing_method)) + geom_boxplot(show.legend=F) + ggtitle("Score per Processing Method") + xlab("Total Cup Score") + ylab("Processing Method") + coord_flip()
 ```
 As you can see, coffee that was processed using a washed/wet method or a natural/dry method showed a wider range of results than the other methods. While this may be in part that those two methods had a larger sample size, the other methods did not have any scores blelow a 75 while the first two methods had numerous below 75. This shows that the other methods are more difficult than the washed/wet and the natural/dry methods, but yield higher quality coffee more consistently.
 
@@ -36,8 +36,7 @@ coffee %>%
   select(total_cup_points, species, processing_method) %>%
   filter(!is.na(processing_method)) %>%
   group_by(processing_method, species) %>%
-  summarize(mean_score = mean(total_cup_points)) %>%
-  ggplot(aes(x = mean_score, y = processing_method, color = processing_method)) +geom_point(show.legend=F) + facet_wrap(~ species) + ggtitle("Average Score per Species") +xlab("Mean Score") + ylab("Processing Method")
+  ggplot(aes(x = processing_method, y = total_cup_points, color = processing_method)) +geom_boxplot(show.legend=F) + facet_wrap(~ species) + ggtitle("Average Score per Species") +xlab("Mean Score") + ylab("Processing Method") + coord_flip() + stat_summary(fun.y=mean, geom="point", shape=1, size=3, show.legend=F)
   
 ```
 As we can see, For the Arabica species the pulped natural/honey method produced the highest average score, and for the Robusta species the washed/wet method produced the highest average score by a signifigant margin.
