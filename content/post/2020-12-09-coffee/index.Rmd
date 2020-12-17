@@ -6,12 +6,12 @@ slug: coffee
 categories: []
 tags: []
 ---
-```{r message=FALSE, include=FALSE, echo=TRUE}
+```{r message=FALSE, include=FALSE, echo = TRUE}
 library(here)
 library(ggplot2)
 library(tidyverse)
 library(readxl)
-knitr::opts_chunk$set(tidy = TRUE, echo = FALSE)
+knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
 coffee <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-07-07", "coffee_ratings.csv"))
 ```
 

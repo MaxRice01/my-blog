@@ -11,7 +11,7 @@ library(here)
 library(ggplot2)
 library(tidyverse)
 library(readxl)
-knitr::opts_chunk$set(tidy = TRUE, echo = FALSE)
+knitr::opts_chunk$set(tidy = TRUE, echo = TRUE)
 music <- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-01-21", "spotify_songs.csv"))
 ```
 
